@@ -4,6 +4,9 @@ let I=[]
 let N=[]
 let G=[]
 let O=[]
+let CALLED_NUMBERS = []
+
+const BLANK = ""
 
 // set inital valid values range 1 to 75
 function setNumbers(){
@@ -45,22 +48,42 @@ function generateCard() {
     }
 
     // should have space in middle of the card ( letter I )
-    n[2]=""
+    n[2]=BLANK
 
     return [b,i,n,g,o]    
+}
+
+
+//check if all numbers on the card have been called
+function checkWinnerCard(cardArray){
+    return cardArray.flat().every(number => CALLED_NUMBERS.includes(number)||number===BLANK)
 }
 
 
 //initialize
 setNumbers()
 
-
+const callNumbers = generateNumber(NUMBERS)
 const generateBNumber = generateNumber(B)
 const generateINumber = generateNumber(I)
 const generateNNumber = generateNumber(N)
 const generateGNumber = generateNumber(G)
 const generateONumber = generateNumber(O)
 
+const card1 = generateCard()
 
-console.log( generateCard() )
+console.log( card1 )
 
+let count=0
+do {
+    count++
+    //call a number
+    const number = callNumbers()
+    CALLED_NUMBERS.push( number )
+
+    console.log(number)
+    //check if have winner
+    status = checkWinnerCard(card1)
+} while (!status && count < 75)
+
+console.log("card1 won after ", count, "attempts")
