@@ -44,6 +44,9 @@ function generateCard() {
         o.push( generateONumber() )  
     }
 
+    // should have space in middle of the card ( letter I )
+    n[2]=""
+
     return [b,i,n,g,o]    
 }
 
